@@ -2,11 +2,12 @@ import { Field, ObjectType } from "type-graphql"
 import { 
     Entity, 
     Column, 
-    PrimaryGeneratedColumn, 
     CreateDateColumn, 
     UpdateDateColumn,
     BeforeInsert,
-    BaseEntity
+    BaseEntity,
+    VersionColumn,
+    PrimaryGeneratedColumn
 } from "typeorm"
 import { v4 } from 'uuid'
 
@@ -14,7 +15,7 @@ import { v4 } from 'uuid'
 @Entity()
 export class User extends BaseEntity {
     @Field()
-    @Column({ primary: true })
+    @PrimaryGeneratedColumn('uuid')
     id: String
 
     @Field()
@@ -30,7 +31,7 @@ export class User extends BaseEntity {
     deletedAt: Date
 
     @Field()
-    @PrimaryGeneratedColumn({ name: 'seq_id'})
+    @VersionColumn({ name: 'seq_id'})
     seqId: number
 
     @Field()

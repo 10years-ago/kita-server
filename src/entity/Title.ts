@@ -2,19 +2,23 @@ import { Field, ObjectType } from "type-graphql"
 import { 
     Entity, 
     Column, 
-    PrimaryGeneratedColumn, 
     CreateDateColumn, 
     UpdateDateColumn,
     BeforeInsert,
-    BaseEntity
+    BaseEntity,
+    ManyToOne,
+    JoinColumn,
+    VersionColumn,
+    PrimaryGeneratedColumn
 } from "typeorm"
 import { v4 } from 'uuid'
+import { Lang } from "./Lang"
 
 @ObjectType()
 @Entity()
 export class Title extends BaseEntity {
     @Field()
-    @Column({ primary: true })
+    @PrimaryGeneratedColumn('uuid')
     id: String
 
     @Field()
@@ -30,12 +34,16 @@ export class Title extends BaseEntity {
     deletedAt: Date
 
     @Field()
-    @PrimaryGeneratedColumn({ name: 'seq_id'})
+    @VersionColumn({ name: 'seq_id'})
     seqId: number
 
     @Field()
     @Column({ name: 'title_name'})
     titleName: string
+
+    @ManyToOne(() => Lang, (lang) => lang.titles)
+    @JoinColumn({ name: "lang_id", referencedColumnName: 'id'})
+    lang: Lang;
 
     @BeforeInsert()
     addId() {

@@ -5,9 +5,9 @@ export async function connect() {
   //   type: "postgres",
   //   host: "121.4.125.167",
   //   port: 5432,
-  //   username: "wwy",
-  //   password: "wuweiyao",
-  //   database: "wwydb",
+  //   username: "kita",
+  //   password: "991129",
+  //   database: "kita_blog",
   //   entities: [__dirname + "/entity/*.ts"],
   //   synchronize: true,
   //   logging: false,
@@ -23,6 +23,6 @@ export async function connect() {
     database: "kita_blog",
     entities: [__dirname + "/entity/*.ts"],
     synchronize: true,
-    logging: false,
+    logging: false
   })
 }

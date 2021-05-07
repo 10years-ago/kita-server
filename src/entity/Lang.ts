@@ -6,15 +6,18 @@ import {
     CreateDateColumn, 
     UpdateDateColumn,
     BeforeInsert,
-    BaseEntity
+    BaseEntity,
+    OneToMany,
+    VersionColumn
 } from "typeorm"
 import { v4 } from 'uuid'
+import { Title } from "./Title"
 
 @ObjectType()
 @Entity()
-export class Module extends BaseEntity {
+export class Lang extends BaseEntity {
     @Field()
-    @Column({ primary: true })
+    @PrimaryGeneratedColumn('uuid')
     id: String
 
     @Field()
@@ -30,12 +33,15 @@ export class Module extends BaseEntity {
     deletedAt: Date
 
     @Field()
-    @PrimaryGeneratedColumn({ name: 'seq_id'})
+    @VersionColumn({ name: 'seq_id' })
     seqId: number
 
     @Field()
-    @Column({ name: 'module_name'})
-    moduleName: string
+    @Column({ name: 'lang_name'})
+    langName: string
+
+    @OneToMany(() => Title, (title) => title.lang)
+    titles: Title[];
 
     @BeforeInsert()
     addId() {

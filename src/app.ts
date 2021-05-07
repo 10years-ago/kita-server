@@ -1,10 +1,8 @@
 import { ApolloServer } from "apollo-server-express";
 import express from "express";
 import { buildSchema } from "type-graphql";
-// import { UserResolver } from "./resolvers/UserResolver";
 
 export async function startServer() {
-
   const app = express();
 
   const server = new ApolloServer({
@@ -12,6 +10,7 @@ export async function startServer() {
       resolvers: [__dirname + "/resolvers/*.ts"],
       validate: false
     }),
+    tracing: true,
     context: ({ req, res }) => ({ req, res })
   });
 

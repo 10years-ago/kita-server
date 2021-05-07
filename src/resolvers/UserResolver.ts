@@ -49,10 +49,10 @@ export class UserResolver {
   }
 
 
-  @Query(() => [User])
-  Users() {
-    return User.find();
-  }
+  // @Query(() => [User])
+  // Users() {
+  //   return User.find();
+  // }
 
   @Query(() => User, { nullable: true })
   UserByName(

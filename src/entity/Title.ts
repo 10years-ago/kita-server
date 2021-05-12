@@ -7,7 +7,7 @@ import {
     BeforeInsert,
     BaseEntity,
     ManyToOne,
-    JoinColumn,
+    // JoinColumn,
     VersionColumn,
     PrimaryGeneratedColumn
 } from "typeorm"
@@ -41,8 +41,11 @@ export class Title extends BaseEntity {
     @Column({ name: 'title_name'})
     titleName: string
 
+    @Field()
+    @Column({ name: 'lang_id'})
+    langId: string
+
     @ManyToOne(() => Lang, (lang) => lang.titles)
-    @JoinColumn({ name: "lang_id", referencedColumnName: 'id'})
     lang: Lang;
 
     @BeforeInsert()

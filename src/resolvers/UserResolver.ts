@@ -48,18 +48,12 @@ export class UserResolver {
     return await newUser.save()
   }
 
-
-  // @Query(() => [User])
-  // Users() {
-  //   return User.find();
-  // }
-
   @Query(() => User, { nullable: true })
   UserByName(
     @Arg('name') name: string
   ){
     return User.findOne({
-      where:[{name, deleted_at: null}]
+      where:[{name, deletedAt: null}]
     });
   }
 

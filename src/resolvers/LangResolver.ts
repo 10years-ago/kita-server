@@ -4,11 +4,15 @@ import {
   Mutation, 
   Field, 
   InputType,
-  Arg
+  Arg,
+  Query,
+  FieldResolver,
+  Root
   // Query
  } from 'type-graphql'
  import { getConnection } from "typeorm";
  import toHump from './ToHump'
+import { Title } from '../entity/Title';
 
 @InputType()
 class CreateLangInput implements Partial<Lang> {
@@ -16,7 +20,7 @@ class CreateLangInput implements Partial<Lang> {
   langName: string;
 }
 
-@Resolver()
+@Resolver(Lang)
 export class LangResolver {
   @Mutation(() => Lang)
   async createLang(@Arg("variables") variables: CreateLangInput
@@ -26,10 +30,18 @@ export class LangResolver {
   }
 
 
-  // @Query(() => [Lang])
-  // Langs() {
-  //   return Lang.find();
-  // }
+  @Query(() => [Lang])
+  Langs() {
+    return Lang.find();
+  }
+
+  @FieldResolver(() => [Title])
+  titles(@Root() lang: Lang) {
+    const abc = Title.find({
+      where:[{langId:lang.id, deletedAt: null}]
+    })
+    return abc
+  }
 
   @Mutation(() => Lang, { nullable: true })
   async editLang(

@@ -9,6 +9,7 @@ import {
   // ObjectType
  } from 'type-graphql'
  import { getConnection } from "typeorm";
+ import { sendEmail } from '../utils/sendEmail';
 // import { getConnection } from "typeorm";
 
 // @ObjectType()
@@ -32,8 +33,6 @@ class UserRegisterInput implements Partial<User> {
   @Field()
   email: string;
   @Field()
-  username: string;
-  @Field()
   password: string;
   @Field()
   name: string;
@@ -44,6 +43,7 @@ export class UserResolver {
   @Mutation(() => User)
   async register(@Arg("variables") variables: UserRegisterInput
   ): Promise<User> {
+    await sendEmail('414578531@qq.com','wooo!!!')
     const newUser = User.create(variables)
     return await newUser.save()
   }

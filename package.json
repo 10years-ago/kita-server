@@ -1,7 +1,6 @@
 {
   "name": "yun",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon src/index.ts --exec ts-node"
@@ -9,6 +8,7 @@
   "devDependencies": {
     "@types/express": "^4.17.11",
     "@types/node": "^14.14.22",
+    "@types/nodemailer": "^6.4.2",
     "@types/uuid": "^8.0.1",
     "nodemon": "^2.0.7",
     "ts-node": "^9.1.1",
@@ -20,10 +20,23 @@
     "express": "^4.17.1",
     "graphql": "^15.5.0",
     "lodash": "^4.17.21",
+    "nodemailer": "^6.6.1",
     "pg": "^8.5.1",
     "reflect-metadata": "^0.1.13",
     "type-graphql": "^1.1.1",
     "typeorm": "^0.2.31",
     "uuid": "^8.3.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/10years-ago/kita-server.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/10years-ago/kita-server/issues"
+  },
+  "homepage": "https://github.com/10years-ago/kita-server#readme",
+  "description": ""
 }

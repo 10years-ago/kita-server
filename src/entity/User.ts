@@ -35,11 +35,15 @@ export class User extends BaseEntity {
     seqId: number
 
     @Field()
-    @Column()
+    @Column({ nullable: true })
     password: string
 
     @Field()
-    @Column()
+    @Column({ nullable: true })
+    pin: string
+
+    @Field()
+    @Column({ nullable: true })
     name: string
 
     @Field()
@@ -47,7 +51,7 @@ export class User extends BaseEntity {
     userPhoto: string
 
     @Field()
-    @Column({ nullable: true })
+    @Column()
     email: string
 
     @BeforeInsert()

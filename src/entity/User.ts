@@ -26,7 +26,7 @@ export class User extends BaseEntity {
     @UpdateDateColumn({ name: 'updated_at'})
     updatedAt: Date
 
-    @Field()
+    @Field({ nullable: true })
     @Column({ nullable: true, name: 'deleted_at' })
     deletedAt: Date
 
@@ -34,25 +34,37 @@ export class User extends BaseEntity {
     @VersionColumn({ name: 'seq_id'})
     seqId: number
 
-    @Field()
+    @Field({ nullable: true })
     @Column({ nullable: true })
     password: string
 
-    @Field()
+    @Field({ nullable: true })
     @Column({ nullable: true })
     pin: string
 
-    @Field()
+    @Field({ nullable: true })
+    @Column({ nullable: true,name: 'pin_time' })
+    pinTime: Date
+
+    @Field({ nullable: true })
     @Column({ nullable: true })
     name: string
 
-    @Field()
+    @Field({ nullable: true })
     @Column({ nullable: true, name: 'user_photo' })
     userPhoto: string
 
-    @Field()
+    @Field({ nullable: true })
     @Column()
     email: string
+
+    @Field({ nullable: true })
+    @Column({ nullable: true })
+    token: string
+    
+    @Field({ nullable: true })
+    @Column({ nullable: true, name: 'token_at' })
+    tokenAt: Date
 
     @BeforeInsert()
     addId() {

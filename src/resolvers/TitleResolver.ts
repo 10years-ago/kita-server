@@ -8,9 +8,9 @@ import {
   FieldResolver,
   Root,
   Query
-  // Query
  } from 'type-graphql'
 import { Lang } from '../entity/Lang';
+import { Content } from '../entity/Content';
 //  import { getConnection } from "typeorm";
 //  import toHump from './ToHump'
 
@@ -28,17 +28,25 @@ export class LangResolver {
   async createTitle(@Arg("variables") variables: CreateTitleInput
   ): Promise<Title> {
     const newTitle = Title.create(variables)
-    const abc = await newTitle.save()
-    return abc
-    // return toHump(result.raw[0])
+    const res = await newTitle.save()
+    return res
   }
 
   @FieldResolver(() => Lang)
   lang(@Root() title: Title) {
-    const abc  = Lang.findOne({
+    console.log(title)
+    const res  = Lang.findOne({
       where:[{id:title.langId, deletedAt: null}]
     });
-    return abc
+    return res
+  }
+
+  @FieldResolver(() => [Content])
+  contents(@Root() title: Title) {
+    const res = Content.find({
+      where:[{titleId:title.id, deletedAt: null}]
+    })
+    return res
   }
 
   @Query(() => [Title])

@@ -11,6 +11,7 @@ import {
     VersionColumn
 } from "typeorm"
 import { v4 } from 'uuid'
+import { Content } from "./Content"
 import { Title } from "./Title"
 
 @ObjectType()
@@ -28,17 +29,20 @@ export class Lang extends BaseEntity {
     @UpdateDateColumn({ name: 'updated_at'})
     updatedAt: Date
 
-    @Field()
+    @Field({ nullable: true })
     @Column({ nullable: true, name: 'deleted_at' })
     deletedAt: Date
 
     @Field()
     @VersionColumn({ name: 'seq_id' })
-    seqId: number
+    seqId: Number
 
     @Field()
-    @Column({ name: 'lang_name'})
-    langName: string
+    @Column({ name: 'lang_name' })
+    langName: String
+
+    @Field(() => [Content], { nullable: true })
+    contents: Content[]
 
     @OneToMany(() => Title, (title) => title.lang)
     titles: Title[];

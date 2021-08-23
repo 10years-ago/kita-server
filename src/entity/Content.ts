@@ -7,18 +7,17 @@ import {
     BeforeInsert,
     BaseEntity,
     ManyToOne,
+    // JoinColumn,
     VersionColumn,
     PrimaryGeneratedColumn,
-    OneToMany,
     JoinColumn
 } from "typeorm"
 import { v4 } from 'uuid'
-import { Content } from "./Content"
-import { Lang } from "./Lang"
+import { Title } from "./Title"
 
 @ObjectType()
 @Entity()
-export class Title extends BaseEntity {
+export class Content extends BaseEntity {
     @Field()
     @PrimaryGeneratedColumn('uuid')
     id: String
@@ -39,21 +38,25 @@ export class Title extends BaseEntity {
     @VersionColumn({ name: 'seq_id'})
     seqId: Number
 
-    @Field()
-    @Column({ name: 'title_name'})
-    titleName: String
+    @Field({ nullable: true })
+    @Column({ nullable: true, name: 'content_title' })
+    contentTitle: String
+
+    @Field({ nullable: true })
+    @Column({ nullable: true })
+    content: String
+
+    @Field({ nullable: true })
+    @Column({ nullable: true })
+    code: String
 
     @Field()
-    @Column({ name: 'lang_id'})
-    langId: String
+    @Column({ name: 'title_id'})
+    titleId: String
 
-    @ManyToOne(() => Lang, (lang) => lang.titles)
-    @JoinColumn({name: 'lang_id'})
-    lang: Lang
-
-    @OneToMany(() => Content, (content) => content.title)
-    contents: Content[];
-
+    @ManyToOne(() => Title, (title) => title.contents)
+    @JoinColumn({name: 'title_id'})
+    title: Title
 
     @BeforeInsert()
     addId() {

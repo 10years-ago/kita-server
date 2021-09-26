@@ -66,6 +66,10 @@ export class User extends BaseEntity {
     @Column({ nullable: true, name: 'token_at' })
     tokenAt: Date
 
+    @Field({ nullable: true })
+    @Column({ nullable: true, default: 'false' })
+    admin: Boolean
+
     @BeforeInsert()
     addId() {
 		this.id = v4();

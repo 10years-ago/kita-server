@@ -5,13 +5,15 @@ import {
   Field, 
   InputType,
   Arg,
-  Query
+  Query,
+  FieldResolver
   // ObjectType
  } from 'type-graphql'
  import { getConnection } from "typeorm";
  import { sendEmail } from '../utils/sendEmail';
  import { v4 } from 'uuid'
  import toHump from './ToHump'
+import { Lang } from '../entity/Lang';
 
 
 // @ObjectType()
@@ -44,7 +46,7 @@ class UserRegisterInput implements Partial<User> {
 }
 
 
-@Resolver()
+@Resolver(User)
 export class UserResolver {
   @Mutation(() => User)
   async register(@Arg("variables") variables: UserRegisterInput
@@ -151,12 +153,13 @@ export class UserResolver {
   }
 
   @Query(() => User, { nullable: true })
-  userByToken(
+  async userByToken(
     @Arg('token') token: string
   ){
-    return User.findOne({
+    const user = await User.findOne({
       where:[{token, deletedAt: null}]
-    });
+    })
+    return user?.id ? user : { admin:false }
   }
 
   @Mutation(() => User, { nullable: true })
@@ -204,6 +207,15 @@ export class UserResolver {
     .returning("*")
     .execute()
     return result.raw[0]
+  }
+
+  @FieldResolver(() => Lang, { nullable: true })
+  lang(
+    @Arg('langName') langName: string
+  ){
+    return Lang.findOne({
+      where:[{langName, deletedAt: null}]
+    });
   }
 }
 

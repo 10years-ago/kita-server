@@ -61,14 +61,14 @@ export class LangResolver {
     return toHump(result.raw[0])
   }
 
-  @Query(() => Lang, { nullable: true })
-  langByLangName(
-    @Arg('langName') langName: string
-  ){
-    return Lang.findOne({
-      where:[{langName, deletedAt: null}]
-    });
-  }
+  // @Query(() => Lang, { nullable: true })
+  // langByLangName(
+  //   @Arg('langName') langName: string
+  // ){
+  //   return Lang.findOne({
+  //     where:[{langName, deletedAt: null}]
+  //   });
+  // }
   
   @FieldResolver(() => [Content], { nullable: true })
   async contents(

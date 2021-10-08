@@ -10,19 +10,20 @@ import {
     PrimaryGeneratedColumn
 } from "typeorm"
 import { v4 } from 'uuid'
+import { Lang } from "./Lang"
 
 @ObjectType()
 @Entity()
 export class User extends BaseEntity {
-    @Field()
+    @Field({ nullable: true })
     @PrimaryGeneratedColumn('uuid')
     id: String
 
-    @Field()
+    @Field({ nullable: true })
     @CreateDateColumn({ name: 'created_at'})
     createdAt: Date
 
-    @Field()
+    @Field({ nullable: true })
     @UpdateDateColumn({ name: 'updated_at'})
     updatedAt: Date
 
@@ -30,7 +31,7 @@ export class User extends BaseEntity {
     @Column({ nullable: true, name: 'deleted_at' })
     deletedAt: Date
 
-    @Field()
+    @Field({ nullable: true })
     @VersionColumn({ name: 'seq_id'})
     seqId: number
 
@@ -69,6 +70,9 @@ export class User extends BaseEntity {
     @Field({ nullable: true })
     @Column({ nullable: true, default: 'false' })
     admin: Boolean
+
+    @Field(() => Lang, { nullable: true })
+    lang: Lang
 
     @BeforeInsert()
     addId() {
